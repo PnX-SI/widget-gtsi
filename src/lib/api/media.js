@@ -5,7 +5,7 @@
  *   image for the given taxon, or undefined if no image is found
  */
 function getMedias(gbifId) {
-  url = "https://api.gbif.org/v1/species/" + gbifId + "/media";
+  const url = "https://api.gbif.org/v1/species/" + gbifId + "/media";
 
   return fetch(url, { method: "GET" })
     .then(function (response) {
@@ -18,3 +18,5 @@ function getMedias(gbifId) {
       }
     });
 }
+
+export { getMedias };

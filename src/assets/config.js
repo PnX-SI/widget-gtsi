@@ -1,5 +1,6 @@
 const config = {
   NB_MAX_TAXONS: 10,
+  DEFAULT_NB_MAX_TAXONS: 10,
   STATUS_LABELS: {
     worldRedList: "Liste Rouge Mondiale",
     europeanRedList: "Liste Rouge europeenne",
@@ -23,4 +24,19 @@ const config = {
     invasiveReglementation: "Réglementation invasive",
     prioriteActionPubliqueNationale: "Priorité d'action publique nationale",
   },
+  COLOR_STATUS: {
+    EX: "#000000",
+    EW: "#3d1951",
+    RE: "#5a1a63",
+    CR: "#d3001b",
+    EN: "#fbbf00",
+    VU: "#ffed00",
+    NT: "#fbf2ca",
+    LC: "#78b74a",
+    DD: "#d3d4d5",
+    NA: "#919291",
+    NE: "#ffffff",
+  },
 };
+
+export default config;

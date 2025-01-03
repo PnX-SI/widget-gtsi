@@ -14,3 +14,5 @@ function getStatusForATaxon(taxonData) {
       return json._embedded?.status;
     });
 }
+
+export { getStatusForATaxon };

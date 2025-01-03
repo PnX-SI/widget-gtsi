@@ -1,0 +1,8 @@
+- Prendre la date la plus proche dans l'affichage d'un taxon
+- Ajouter la possibilité de filtrer la liste de taxon (moteur de recherche)
+- Gestion responsive du formulaires des filtres
+- Ajouter tests unitaires
+- Ajouter l'affichage des status de protection ... mais sur un page/modale dédiée ? Ca eviterai les temps de chargements trop longs
+- Ajouter le nom commun du taxon
+- Rendu du wkt quand celui-ci est indiqué dans les paramètres d'URL
+- Se remettre sur la documentation du code

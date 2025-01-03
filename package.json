@@ -1,0 +1,27 @@
+{
+  "name": "taxonsaroundme",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@turf/turf": "^7.1.0",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "js-cookie": "^3.0.5",
+    "leaflet": "^1.9.4",
+    "leaflet-draw": "^1.0.4",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "wellknown": "^0.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.0.5",
+    "vite-plugin-vue-devtools": "^7.6.8"
+  }
+}
