@@ -3,7 +3,7 @@
 # abort on errors
 set -e
 
-# build
+# build 
 npm run build
 
 # navigate into the build output directory
