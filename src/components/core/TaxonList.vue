@@ -89,7 +89,7 @@ const speciesListShowed = computed(() => {
       const data =
         taxon?.vernacularName != undefined
           ? taxon.vernacularName + " " + taxon.acceptedScientificName
-          : taxon.acceptedScientificName;
+          : taxon.acceptedScientificName ? taxon.acceptedScientificName : "incertae sedis";
       return data.toLowerCase().includes(searchString.value.toLowerCase());
     });
   }

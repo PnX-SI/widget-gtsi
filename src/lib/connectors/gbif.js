@@ -125,23 +125,49 @@ class GbifConnector extends Connector {
       .then((response) => {
         return response.json();
       })
-      .then(function (json) {
-        let mediaList = [];
-        Object.values(json.results).forEach((media) => {
-          if (
-            media.hasOwnProperty("license") &&
-            media.hasOwnProperty("rightsHolder")
-          ) {
-            mediaList.push({
-              url: media.identifier,
-              licence: media.licence,
-              source: `${media.rightsHolder} (${media.license})`,
-            });
-          }
-        });
-        return mediaList;
+      .then((json) => {
+        let mediaList = this.processMedia(json.results);
+        if (mediaList.length == 0) {
+          return this.fetchMediaOccurence(idTaxon);
+        }
+        else {
+          return mediaList;
+        }
       });
   }
+
+  processMedia(medias) {
+    let mediaList = [];
+    Object.values(medias).forEach((media) => {
+      if (
+        media.hasOwnProperty("license") &&
+        media.hasOwnProperty("rightsHolder")
+      ) {
+        mediaList.push({
+          url: media.identifier,
+          licence: media.licence,
+          source: `${media.rightsHolder} (${media.license})`,
+        })
+      }
+    });
+    return mediaList;
+  }
+
+  fetchMediaOccurence(idTaxon) {
+    const url = `https://api.gbif.org/v1/occurrence/search?limit=10&mediaType=StillImage&speciesKey=${idTaxon}`;
+    return fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        let medias = [];
+        json.results.forEach((element) => {
+          medias = medias.concat(element.media);
+        });
+        return this.processMedia(medias);
+      });
+  }
+
   fetchTaxonInfo(idTaxon) {
     const url = `https://api.gbif.org/v1/species/${idTaxon}?language=${this.language}`;
     return fetch(url)
