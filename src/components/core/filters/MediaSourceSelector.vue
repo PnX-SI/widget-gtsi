@@ -40,7 +40,6 @@ watch(mediaSourceID, () => {
   connector.value = new connector.value.constructor(
     Object.assign({}, connector.value.getParams(), newMediaParams)
   );
-  console.log("after", connector.value);
 });
 </script>
 <template>
