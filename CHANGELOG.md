@@ -1,18 +1,27 @@
 # CHANGELOG
 
-## 1.3.0 (2025-05-22)
+## 1.4.0 (2026-07-08)
+
+- Use Taxref vernacular names first when available, then EUNIS Biodiversity Database, then Catalogue of Life, instead of just using Catalogue of Life vernacular names all the time (#145 by @amandine-sahl)
+- Add a text about how to contribute to GBIF in the footer (#137 by @jacquesfize)
+- Don't display an error message if geolocation is not activated on the device (#139 by @jacquesfize)
+- Don't display an error message and continue to request API when getting a 429 error (Too many requests) from an API (#142 by @amandine-sahl)
+- Update Node.js 20 to 24 (by @jacquesfize)
+- Update dependencies (by @jacquesfize)
+
+## 1.3.0 (2026-05-22)
 
 ### ✨ New Features
 
-- Complete redesign of the detailed taxon view with improved layout and aesthetics (#123 par @jacquesfize)
-- Add Global conservation status (IUCN Red List) display on each species (#119 par @jacquesfize)
+- Complete redesign of the detailed taxon view with improved layout and aesthetics (#123 by @jacquesfize)
+- Add Global conservation status (IUCN Red List) display on each species (#119 by @jacquesfize)
 - Fullscreen mode by clicking on a species picture (#122 by @jacquesfize)
-- Improved audio player with better tooltips and interaction feedback (#125 par @jacquesfize)
-- BAM is now available as PWA for a mobile usage (#43 par @jacquesfize)
-- Custom source naming for GeoNature connector via `SOURCE_NAME` new parameter (#125 par @jacquesfize)
-- End2End tests are now available using Playwright (#19 par @jacquesfize)
-- Add unit tests using Vitest (#114 par @jacquesfize)
-- New features proposed in pull requests are automatically deployed on Netlify (#106 par @jacquesfize)
+- Improved audio player with better tooltips and interaction feedback (#125 by @jacquesfize)
+- BAM is now available as PWA for a mobile usage (#43 by @jacquesfize)
+- Custom source naming for GeoNature connector via `SOURCE_NAME` new parameter (#125 by @jacquesfize)
+- End2End tests are now available using Playwright (#19 by @jacquesfize)
+- Add unit tests using Vitest (#114 by @jacquesfize)
+- New features proposed in pull requests are automatically deployed on Netlify (#106 by @jacquesfize)
 - New examples are available in the documentation (by @camillemonchicourt)
 
 ### 🐛 Fixes
@@ -20,10 +29,10 @@
 - Fix TaxHub media URL retrieval to use correct `media_url` field
 - Fix credits display when no source URL is provided
 - Audio is now loaded only when played (#103)
-- Add missing orderby in the GeoNature connector results (#118 par @jacquesfize)
-- Small optimizations (#105 par @jacquesfize)
+- Add missing orderby in the GeoNature connector results (#118 by @jacquesfize)
+- Small optimizations (#105 by @jacquesfize)
 - Add function to remove potential inner ring (incompatible with most datasource API) (#120 by @jacquesfize)
-- Improved compatibility with mobile when 2 or more columns are (#131 par @azarz)
+- Improved compatibility with mobile when 2 or more columns are (#131 by @azarz)
 - Limit the number of coordinates of geometries sent to the GBIF search endpoint (#102)
 
 ## 1.2.0 (2025-11-18)
