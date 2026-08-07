@@ -112,6 +112,8 @@
                             {{ connector.getSourceName() }}
                         </a>
                         <strong v-else>{{ connector.getSourceName() }}</strong>
+                        <span class="separator">•</span>
+                        <ShareButton />
                     </span>
                 </div>
                 <button
