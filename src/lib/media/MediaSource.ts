@@ -37,4 +37,15 @@ export abstract class MediaSource {
         }
         return new Promise((_) => null);
     }
+
+    /**
+     * Returns the credits for a given media item. Used when the media
+     * are fetched without credits information,
+     * to enrich them with the necessary details to be displayed in the UI.
+     * @param {Media} media - The media item.
+     * @returns {Promise<Media>} The media item with credits information.
+     */
+    getCredits(media: Media): Promise<Media> {
+        throw new Error('Not implemented');
+    }
 }

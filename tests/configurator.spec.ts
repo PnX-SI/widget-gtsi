@@ -21,9 +21,7 @@ async function checkForParameterChange(page, key, value) {
 
 test.describe('Form parameters testing', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto(
-            '/#/config?widgetType=mapList&lang=fr&GBIF_ENDPOINT=https://api.gbif-uat.org/v1/'
-        );
+        await page.goto('/#/config?widgetType=mapList&lang=fr');
     });
 
     test('enable/disable filter', async ({ page }) => {

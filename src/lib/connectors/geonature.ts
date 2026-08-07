@@ -138,10 +138,9 @@ export class GeoNatureConnector extends Connector {
     }
 
     fetchTaxonStatus(idTaxon: string): Promise<any> {
-        const url = `https://taxref.mnhn.fr/api/taxa/${idTaxon}/status/columns`;
-        return fetch(url)
-            .then((response) => response.json())
-            .then((json) => json._embedded?.status);
+        // GeoNature uses Taxref status system, not IUCN Red List
+        // Return null to indicate IUCN status is not available
+        return Promise.resolve(null);
     }
 
     getTaxonDetailPage(taxonId: string): string {

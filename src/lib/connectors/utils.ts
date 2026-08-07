@@ -1,6 +1,7 @@
 import { CONNECTORS } from './connectors';
 import { GbifConnector } from './gbif';
 import { GeoNatureConnector } from './geonature';
+import { GbifFacetConnector } from './gbiffacet';
 import { Connector } from './connector';
 import { simplify, truncate } from '@turf/turf';
 import { Feature, Polygon, MultiPolygon } from 'geojson';
@@ -17,8 +18,10 @@ export function getConnector(
             return new GbifConnector(params);
         case CONNECTORS.GeoNature:
             return new GeoNatureConnector(params);
+        case CONNECTORS.GBIF_FACET:
+            return new GbifFacetConnector(params);
         default:
-            return new GbifConnector(params);
+            return new GbifFacetConnector(params);
     }
 }
 

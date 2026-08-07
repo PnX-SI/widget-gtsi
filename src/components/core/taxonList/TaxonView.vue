@@ -34,7 +34,50 @@
 
     function fetchTaxonImage() {
         speciesPhoto.value = [];
-        if (taxon.taxonId) {
+
+        // First priority: use medias array if available
+        if (taxon.medias && taxon.medias.length > 0) {
+            const images = taxon.medias.filter(
+                (m) => m.typeMedia === MediaType.image
+            );
+            if (images.length > 0) {
+                speciesPhoto.value = [...images];
+
+                // For detailed view, fetch full credits if not already present
+                images.forEach((media, index) => {
+                    // Check if media already has full credits (has license field)
+                    if (!media.license && media.source) {
+                        // Use the media source's getCredits method to fetch full credits
+                        connector.value.imageSource
+                            .getCredits(media)
+                            .then((enrichedMedia) => {
+                                // Update the media with full credits
+                                speciesPhoto.value[index] = enrichedMedia;
+                            })
+                            .catch((err) => {
+                                console.warn(
+                                    `Failed to fetch credits for ${media.source}:`,
+                                    err
+                                );
+                            });
+                    }
+                });
+
+                return;
+            }
+        }
+
+        // Second priority: use mediaUrl for backward compatibility
+        if (taxon.mediaUrl) {
+            speciesPhoto.value = [
+                {
+                    url: taxon.mediaUrl,
+                    typeMedia: MediaType.image,
+                },
+            ];
+        }
+        // Last resort: fetch from media source
+        else if (taxon.taxonId) {
             connector.value.imageSource
                 .fetchPicture(taxon.taxonId, connector.value)
                 .then((response) => {
@@ -44,6 +87,19 @@
     }
     function fetchTaxonAudio() {
         speciesAudio.value = null;
+
+        // First priority: use medias array if available (includes full credits)
+        if (taxon.medias && taxon.medias.length > 0) {
+            const sounds = taxon.medias.filter(
+                (m) => m.typeMedia === MediaType.sound
+            );
+            if (sounds.length > 0) {
+                speciesAudio.value = sounds[0];
+                return;
+            }
+        }
+
+        // Fallback: fetch from media source
         if (taxon.taxonId) {
             connector.value.soundSource
                 .fetchSound(taxon.taxonId, connector.value)
@@ -62,21 +118,31 @@
     });
 
     function refreshVernacularName() {
+        if (taxon.vernacularName) {
+            console.log('Vernacular name already exists, no need to fetch it');
+            return;
+        }
         connector.value.fetchVernacularName(taxon.taxonId).then((name) => {
             if (name) {
-                vernacularName.value = name.split(',')[0];
-                taxon.vernacularName = vernacularName.value;
+                taxon.vernacularName = name.split(',')[0];
             }
         });
     }
 
     function fetchStatus(connector: Connector) {
-        connector.fetchTaxonStatus(taxon.taxonId).then((status_) => {
-            status.value = {
-                status: status_,
-                color: connector.getStatusColor(status_),
-            };
-        });
+        connector
+            .fetchTaxonStatus(taxon.taxonId)
+            .then((status_) => {
+                if (status_) {
+                    status.value = {
+                        status: status_,
+                        color: connector.getStatusColor(status_),
+                    };
+                }
+            })
+            .catch((err) => {
+                console.warn('Failed to fetch taxon status:', err);
+            });
     }
 
     fetchTaxonImage();
@@ -94,7 +160,7 @@
         v-if="mode == 'gallery'"
         :picture="mediaDisplayed"
         :audio="speciesAudio"
-        :vernacular-name="vernacularName || taxon.acceptedScientificName"
+        :vernacular-name="taxon.vernacularName || taxon.acceptedScientificName"
         :url-detail-page="fetchDetailUrl(taxon.taxonId)"
         :accepted-scientific-name="taxon.acceptedScientificName"
         :cols="props.cols"
@@ -106,7 +172,7 @@
         :picture="mediaDisplayed"
         :audio="speciesAudio"
         :accepted-scientific-name="taxon.acceptedScientificName"
-        :vernacular-name="vernacularName || taxon.acceptedScientificName"
+        :vernacular-name="taxon.vernacularName || taxon.acceptedScientificName"
         :url-detail-page="fetchDetailUrl(taxon.taxonId)"
         :nb-observations="taxon?.nbObservations"
         :last-seen-date="taxon?.lastSeenDate"

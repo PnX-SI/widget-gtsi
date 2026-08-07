@@ -88,6 +88,12 @@ Výsledky můžete také **sdílet 📤** a spolupracovat s ostatními uživatel
             apiEndpoint: 'API endpoint GBIF',
             howToContribute:
                 "Pokud chcete přispět k otevřeným datům pozorování biodiverzity agregovaným v GBIF, můžete využít kolaborativní platformy jako <a target='_blank' href='https://www.inaturalist.org/'>iNaturalist</a>, <a target='_blank' href='https://plantnet.org/'>Pl{'@'}ntNet</a> nebo <a target='_blank' href='https://observation.org/'>Observation.org</a>.",
+            progress: {
+                fetching: 'Načítání pozorování...',
+                processing: 'Zpracování dat...',
+                enriching: 'Získávání informací o taxonech...',
+                finalizing: 'Dokončování...',
+            },
         },
         geonature: {
             api_endpoint: 'API endpoint GeoNature',

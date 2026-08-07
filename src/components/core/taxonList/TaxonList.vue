@@ -81,6 +81,8 @@
         pageIndex,
         loadingObservations,
         loadingError,
+        loadingProgress,
+        loadingMessage,
     } = taxonManager;
 
     const speciesList = computed(() => searchResult.value.taxons);
@@ -168,6 +170,8 @@
                     <TaxonListMessages
                         :loading-error="loadingError"
                         :loading-observations="loadingObservations"
+                        :loading-progress="loadingProgress"
+                        :loading-message="loadingMessage"
                         :species-list="speciesList"
                         :filter-species-list="filteredSpecies"
                     />

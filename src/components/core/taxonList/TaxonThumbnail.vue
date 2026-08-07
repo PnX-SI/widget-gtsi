@@ -47,7 +47,7 @@
             <div class="card-img-overlay">
                 <div class="card-title">
                     <StatusIcon
-                        v-if="props.status.status"
+                        v-if="props.status?.status"
                         :status="props.status.status"
                         :color="props.status.color"
                         :size="'1rem'"

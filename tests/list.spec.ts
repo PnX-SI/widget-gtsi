@@ -5,7 +5,7 @@ import { TaxonList } from './page/taxonlistcontroller';
 test.describe('Simple list', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto(
-            'http://localhost:5173/#/?widgetType=list&x=6.076641082763673&y=44.55164823782743&GBIF_ENDPOINT=https://api.gbif-uat.org/v1/&showFilters=true&lang=en&switchModeAvailable=true'
+            'http://localhost:5173/#/?widgetType=list&x=6.076641082763673&y=44.55164823782743&showFilters=true&lang=en&switchModeAvailable=true'
         );
     });
     test('sort', async ({ page }) => {

@@ -96,6 +96,19 @@ function isRunningOnMobile() {
     return check;
 }
 
+/**
+ * Fetches JSON data from a given URL and returns it as a promise.
+ * If the HTTP response is not OK, it throws an error with the HTTP status code.
+ * @template T The type of the JSON data to be fetched.
+ * @param {string} url The URL to fetch the JSON data from.
+ * @returns {Promise<T>} A promise resolving to the fetched JSON data.
+ */
+async function fetchJson<T>(url: string): Promise<T> {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.json();
+}
+
 export {
     toWKT,
     restoreMapState,
@@ -103,4 +116,5 @@ export {
     getBaseUrl,
     validURL,
     isRunningOnMobile,
+    fetchJson,
 };

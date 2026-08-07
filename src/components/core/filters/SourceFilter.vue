@@ -5,6 +5,7 @@
     import { getConnector } from '@/lib/connectors/utils';
     import { GeoNatureConnector } from '@/lib/connectors/geonature';
     import { GbifConnector } from '@/lib/connectors/gbif';
+    import { GbifFacetConnector } from '@/lib/connectors/gbiffacet';
     import { CONNECTORS } from '@/lib/connectors/connectors';
 
     const props = defineProps({
@@ -19,6 +20,7 @@
     const sourcesParams = {
         [CONNECTORS.GBIF]: new GbifConnector().getParamsSchema(),
         [CONNECTORS.GeoNature]: new GeoNatureConnector().getParamsSchema(),
+        [CONNECTORS.GBIF_FACET]: new GbifFacetConnector().getParamsSchema(),
     };
 
     const sourceName = ref(connector.value.name);

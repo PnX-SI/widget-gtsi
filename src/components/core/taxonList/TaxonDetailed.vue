@@ -23,10 +23,10 @@
                 :media="props.picture"
                 :alt="props.picture?.urlSource"
             >
-                <img
-                    :src="props.picture?.url"
+                <Image
+                    :imageUrl="props.picture?.url"
                     :alt="props.picture?.urlSource"
-                    data-testid="Taxon picture"
+                    testID="Taxon picture"
                 />
             </FullScreenImage>
             <AudioPlayer
@@ -45,7 +45,7 @@
         <div class="names">
             <div class="vernacular-name">
                 <StatusIcon
-                    v-if="props.status.status"
+                    v-if="props.status?.status"
                     :status="props.status.status"
                     :color="props.status.color"
                     :size="'1.2rem'"
@@ -122,18 +122,27 @@
         bottom: 10px;
         right: 10px;
         z-index: 2;
+        width: auto;
     }
 
-    img {
-        display: block;
+    .audio-overlay {
+        width: auto;
+    }
+
+    .image-container > :not(.audio-overlay):not(.copyright-overlay) {
         width: 100%;
-        height: auto;
-        aspect-ratio: 1;
-        object-fit: cover;
+    }
+
+    :deep(.image-wrapper) {
         border-radius: 10px 10px 0px 0px;
         -webkit-border-radius: 10px 10px 0px 0px;
         -moz-border-radius: 10px 10px 0px 0px;
-        margin: 0 auto;
+    }
+
+    :deep(.image-wrapper img) {
+        border-radius: 10px 10px 0px 0px;
+        -webkit-border-radius: 10px 10px 0px 0px;
+        -moz-border-radius: 10px 10px 0px 0px;
     }
 
     .statistics-wrapper {

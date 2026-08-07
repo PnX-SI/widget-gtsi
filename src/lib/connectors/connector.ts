@@ -62,11 +62,28 @@ export class Connector {
      */
     scoringSearchClass: SearchScoring = new SearchScoring();
 
+    /**
+     * Optional callback function to report progress during long-running operations
+     * @type {Function}
+     */
+    onProgress?: (progress: number, message?: string) => void;
+
     constructor(options: ConnectorOptions) {
         this.options = options;
 
         this.imageSource = this.parseMediaSource(options?.imageSource);
         this.soundSource = this.parseMediaSource(options?.soundSource);
+    }
+
+    /**
+     * Helper method to report progress if a callback is configured
+     * @param {number} progress - Progress percentage (0-100)
+     * @param {string} message - Optional message to display
+     */
+    protected reportProgress(progress: number, message?: string): void {
+        if (this.onProgress) {
+            this.onProgress(progress, message);
+        }
     }
 
     /**
@@ -254,7 +271,7 @@ export class Connector {
      * @returns {Promise<string>} A promise that resolves to the conservation status of the taxon.
      */
     fetchTaxonStatus(taxonId: string | number): Promise<IUCNCodeStatus> {
-        return null;
+        return Promise.resolve(null);
     }
 
     /**
@@ -265,6 +282,11 @@ export class Connector {
         return this.name;
     }
 
+    /**
+     * Returns the color associated with a given IUCN conservation status code.
+     * @param {IUCNCodeStatus} status - The IUCN conservation status code.
+     * @returns {string} The color associated with the given IUCN conservation status code.
+     */
     getStatusColor(status: IUCNCodeStatus): string {
         const IUCNStatusColorDICT = {
             NA: '#C1B5A5',

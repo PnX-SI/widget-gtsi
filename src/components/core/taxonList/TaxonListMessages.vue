@@ -1,6 +1,7 @@
 <script setup>
     import { computed } from 'vue';
     import Loading from '@/components/commons/Loading.vue';
+    import ProgressBar from '@/components/commons/ProgressBar.vue';
     import ParameterStore from '@/lib/parameterStore';
 
     const parameterStore = ParameterStore.getInstance();
@@ -13,6 +14,14 @@
         loadingError: {
             type: Boolean,
         },
+        loadingProgress: {
+            type: Number,
+            default: 0,
+        },
+        loadingMessage: {
+            type: String,
+            default: '',
+        },
         speciesList: {
             type: Array,
         },
@@ -20,6 +29,16 @@
             type: Array,
         },
     });
+
+    // Determine if we should show progress bar or simple loading spinner
+    const showProgressBar = computed(
+        () => props.loadingObservations && props.loadingProgress > 0
+    );
+
+    const showLoading = computed(
+        () => props.loadingObservations && props.loadingProgress === 0
+    );
+
     // Calcul des états pour l'affichage des messages
     const noGeometry = computed(
         () =>
@@ -46,9 +65,19 @@
 
 <template>
     <div class="message">
+        <!-- Progress bar for connectors with progress reporting -->
+        <ProgressBar
+            v-if="showProgressBar"
+            :progress="props.loadingProgress"
+            :message="props.loadingMessage"
+            class="message-box"
+        />
+
+        <!-- Simple loading spinner for connectors without progress -->
         <Loading
+            v-if="showLoading"
             id="loadingObs"
-            :loadingStatus="props.loadingObservations"
+            :loadingStatus="true"
             class="message-box"
         />
 

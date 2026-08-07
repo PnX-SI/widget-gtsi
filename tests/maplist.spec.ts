@@ -4,9 +4,7 @@ import { TaxonList } from './page/taxonlistcontroller';
 
 test.describe('Map list', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto(
-            'http://localhost:5173/#/?GBIF_ENDPOINT=https://api.gbif-uat.org/v1/'
-        );
+        await page.goto('http://localhost:5173/#/');
     });
     test('should load map list', async ({ page }) => {
         await page.locator('.mapC').isVisible();

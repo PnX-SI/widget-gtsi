@@ -62,6 +62,16 @@ export class TaxonListManager {
      */
     public loadingError: Ref<boolean> = ref(false);
     /**
+     * The current loading progress (0-100)
+     * @type {Ref<number>}
+     */
+    public loadingProgress: Ref<number> = ref(0);
+    /**
+     * The current loading message
+     * @type {Ref<string>}
+     */
+    public loadingMessage: Ref<string> = ref('');
+    /**
      * A computed property that returns the species list to be displayed
      * @type {any}
      */
@@ -113,7 +123,18 @@ export class TaxonListManager {
 
         this.loadingObservations.value = true;
         this.loadingError.value = false;
+        this.loadingProgress.value = 0;
+        this.loadingMessage.value = '';
         this.filteredSpecies.value = [];
+
+        // Configure progress callback
+        this.connector.value.onProgress = (
+            progress: number,
+            message?: string
+        ) => {
+            this.loadingProgress.value = progress;
+            this.loadingMessage.value = message || '';
+        };
 
         this.connector.value
             .fetchOccurrence({
@@ -127,10 +148,14 @@ export class TaxonListManager {
                 this.filteredSpecies.value = response.taxons;
                 this.pageIndex.value = 0;
                 this.loadingObservations.value = false;
+                this.loadingProgress.value = 0;
+                this.loadingMessage.value = '';
             })
             .catch(() => {
                 this.loadingError.value = true;
                 this.loadingObservations.value = false;
+                this.loadingProgress.value = 0;
+                this.loadingMessage.value = '';
             });
     }
 
